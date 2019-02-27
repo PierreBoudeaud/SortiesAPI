@@ -1,11 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SortiesAPI.Filters;
@@ -35,7 +32,7 @@ namespace SortiesAPI
                         .AllowCredentials();
                 });
             });
-            services.AddMvc(options => { options.Filters.Add(new CorsFilter()); }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("Context")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             
             // Register the Swagger generator, defining 1 or more Swagger documents
