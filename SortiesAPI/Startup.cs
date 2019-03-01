@@ -1,11 +1,11 @@
-﻿using DAL;
+using DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SortiesAPI.Filters;
+using SortiesAPI.Models;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace SortiesAPI
@@ -46,7 +46,7 @@ namespace SortiesAPI
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseCors("CorsPolicy");
-            app.UseOptions();
+
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
