@@ -1,4 +1,4 @@
-using DAL;
+﻿using DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +32,10 @@ namespace SortiesAPI
                         .AllowCredentials();
                 });
             });
+
+            // Add our Config object so it can be injected
+            services.Configure<WeatherAPIConfig>(Configuration.GetSection("WeatherAPIConfig"));
+
             services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("Context")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             
