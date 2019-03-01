@@ -10,14 +10,13 @@ namespace BO
         public DateTime Date { get; set; }
 
         public int NbPlaces { get; set; }
+        public virtual ICollection<PersonsExcursions> SubscribePeople { get; set; } = new List<PersonsExcursions>();
 
-        public ICollection<PersonsExcursions> SubscribePeople { get; set; } = new List<PersonsExcursions>();
+        public virtual Activity Activity { get; set; }
 
-        public Activity Activity { get; set; }
+        public virtual Person Creator { get; set; }
 
-        public Person Creator { get; set; }
-
-        public Weather Weather { get; set; }
+        public virtual Weather Weather { get; set; }
 
     }
 }

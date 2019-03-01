@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace BO
 {
     public class Weather: AbstractIdentifiable
     {
-        public float Temperature { get; set; }
+        public double Temperature { get; set; }
 
-        public float WindSpeed { get; set; }
+        public double WindSpeed { get; set; }
 
         public int Pression { get; set; }
 
@@ -26,8 +27,8 @@ namespace BO
 
         public DateTime Sunset { get; set; }
 
-        public Guid ExcursionId { get; set; }
+        public double Latitude { get; set; }
 
-        public Excursion Excursion { get; set; }
+        public double Longitude { get; set; }
     }
 }

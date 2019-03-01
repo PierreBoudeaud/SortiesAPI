@@ -11,6 +11,6 @@ namespace BO
 
         public DateTime BirthDate { get; set; }
 
-        public ICollection<PersonsExcursions> SubExcursions { get; set; } = new List<PersonsExcursions>();
+        public virtual ICollection<PersonsExcursions> SubExcursions { get; set; } = new List<PersonsExcursions>();
     }
 }

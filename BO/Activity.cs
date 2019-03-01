@@ -16,6 +16,6 @@ namespace BO
 
         public string City { get; set; }
 
-        public ICollection<Excursion> Excursions { get; set; } = new List<Excursion>();
+        public ICollection<Excursion> Excursions { get; set; }
     }
 }
