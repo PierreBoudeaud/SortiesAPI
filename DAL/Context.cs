@@ -11,7 +11,7 @@ namespace DAL
 
         public DbSet<Activity> Activities { get; set; }
 
-        public DbSet<Weather> Weathers { get; set; }
+        //public DbSet<Weather> Weathers { get; set; }
 
         public Context(DbContextOptions<Context> options) : base(options)
         {
@@ -20,7 +20,7 @@ namespace DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Excursion>()
-                .HasOne(a => a.Activity)
+                .HasOne(e => e.Activity)
                 .WithMany(a => a.Excursions)
                 .OnDelete(DeleteBehavior.Cascade);
 
@@ -40,10 +40,9 @@ namespace DAL
                 .HasOne(e => e.Creator)
                 .WithMany();
 
-            modelBuilder.Entity<Excursion>()
+            /*modelBuilder.Entity<Excursion>()
                 .HasOne(e => e.Weather)
-                .WithOne(w => w.Excursion)
-                .HasForeignKey<Weather>(w => w.ExcursionId);
+                .WithOne();*/
 
             base.OnModelCreating(modelBuilder);
         }
