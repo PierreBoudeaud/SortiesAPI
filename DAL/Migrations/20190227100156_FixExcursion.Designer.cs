@@ -4,14 +4,16 @@ using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DAL.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20190227100156_FixExcursion")]
+    partial class FixExcursion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,15 +58,11 @@ namespace DAL.Migrations
 
                     b.Property<int>("NbPlaces");
 
-                    b.Property<Guid?>("WeatherId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ActivityId");
 
                     b.HasIndex("CreatorId");
-
-                    b.HasIndex("WeatherId");
 
                     b.ToTable("Excursions");
                 });
@@ -105,13 +103,11 @@ namespace DAL.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<Guid>("ExcursionId");
+
                     b.Property<int>("Humidity");
 
                     b.Property<string>("Icon");
-
-                    b.Property<double>("Latitude");
-
-                    b.Property<double>("Longitude");
 
                     b.Property<int>("Pression");
 
@@ -119,29 +115,28 @@ namespace DAL.Migrations
 
                     b.Property<DateTime>("Sunset");
 
-                    b.Property<double>("Temperature");
+                    b.Property<float>("Temperature");
 
-                    b.Property<double>("WindSpeed");
+                    b.Property<float>("WindSpeed");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Weather");
+                    b.HasIndex("ExcursionId")
+                        .IsUnique();
+
+                    b.ToTable("Weathers");
                 });
 
             modelBuilder.Entity("BO.Excursion", b =>
                 {
                     b.HasOne("BO.Activity", "Activity")
-                        .WithMany("Excursions")
+                        .WithMany()
                         .HasForeignKey("ActivityId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("BO.Person", "Creator")
                         .WithMany()
                         .HasForeignKey("CreatorId");
-
-                    b.HasOne("BO.Weather", "Weather")
-                        .WithMany()
-                        .HasForeignKey("WeatherId");
                 });
 
             modelBuilder.Entity("BO.PersonsExcursions", b =>
@@ -154,6 +149,14 @@ namespace DAL.Migrations
                     b.HasOne("BO.Person", "Person")
                         .WithMany("SubExcursions")
                         .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("BO.Weather", b =>
+                {
+                    b.HasOne("BO.Excursion", "Excursion")
+                        .WithOne("Weather")
+                        .HasForeignKey("BO.Weather", "ExcursionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
